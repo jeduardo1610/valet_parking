@@ -4,23 +4,16 @@ import android.graphics.Bitmap
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -81,31 +74,8 @@ fun RegisterVehicleScreen(
                     )
                 }
             )
-            /*Spacer(Modifier.height(16.dp))
-            OutlinedTextField(
-                value = state.title,
-                onValueChange = { color.value = it },
-                label = {
-                    Text(
-                        state.titleHint
-                    )
-                }
-            )
-    */
             Spacer(Modifier.height(16.dp))
-            /*
-                    DropdownMenu(expanded = true, onDismissRequest = { colorPicker.value = false }) {
-                        DropdownMenuItem(
-                            text = { Text("Red") },
-                            onClick = { }
-                        )
-                        DropdownMenuItem(
-                            text = { Text("Green") },
-                            onClick = { }
-                        )
-                    }
-            */
-            DropdownDemo {
+            VehicleColorDropdown {
                 color.value = it
             }
 
@@ -158,47 +128,6 @@ fun RegisterVehicleScreen(
             }
 
             Spacer(modifier = Modifier.weight(0.2f))
-        }
-    }
-}
-
-@Composable
-fun DropdownDemo(onColorChange: (String) -> Unit) {
-    var expanded = remember { mutableStateOf(false) }
-    val items =
-        listOf("Pick a color from the list", "Green", "Red", "White", "Black", "Blue", "Orange")
-    var selectedIndex = remember { mutableStateOf(0) }
-    Box(
-        modifier = Modifier
-            .wrapContentSize(Alignment.TopStart)
-    ) {
-        Text(
-            items[selectedIndex.value], modifier = Modifier
-                .width(IntrinsicSize.Max)
-                .clickable(onClick = {
-                    expanded.value = true
-                })
-                .background(
-                    Color.LightGray
-                )
-        )
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false },
-            modifier = Modifier
-                .background(
-                    Color.Gray
-                )
-        ) {
-            items.forEachIndexed { index, s ->
-                if (index > 0) {
-                    DropdownMenuItem(onClick = {
-                        selectedIndex.value = index
-                        expanded.value = false
-                        onColorChange(s)
-                    }, text = { Text(text = s, color = Color.White) })
-                }
-            }
         }
     }
 }
